@@ -7,3 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+user = User.create(email: "admin@simple_cmdb.com", password: "admin")
+user.add_role(:admin)  # Assign admin role
+
+viewer = User.create(email: "viewer@simple_cmdb.com", password: "viewer")
+viewer.add_role(:viewer)  # Assign viewer role
