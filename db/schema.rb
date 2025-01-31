@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_31_152421) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_31_152936) do
+  create_table "ci_relationships", force: :cascade do |t|
+    t.integer "parent_id"
+    t.integer "child_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_ci_relationships_on_child_id"
+    t.index ["parent_id"], name: "index_ci_relationships_on_parent_id"
+  end
+
   create_table "configuration_items", force: :cascade do |t|
     t.string "name", null: false
     t.string "type", null: false
@@ -50,4 +59,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_31_152421) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
+
+  add_foreign_key "ci_relationships", "configuration_items", column: "child_id"
+  add_foreign_key "ci_relationships", "configuration_items", column: "parent_id"
 end
