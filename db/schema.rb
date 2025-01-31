@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_30_191413) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_31_152421) do
+  create_table "configuration_items", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "type", null: false
+    t.string "status", null: false
+    t.string "environment", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
