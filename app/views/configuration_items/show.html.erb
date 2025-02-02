@@ -1,0 +1,37 @@
+<h1>Configuration Item Details</h1>
+
+<table class="table">
+  <tr>
+    <th>Name:</th>
+    <td><%= @configuration_item.name %></td>
+  </tr>
+  <tr>
+    <th>Type:</th>
+    <td><%= @configuration_item.ci_type %></td>
+  </tr>
+  <tr>
+    <th>Status:</th>
+    <td><%= @configuration_item.status %></td>
+  </tr>
+  <tr>
+    <th>Environment:</th>
+    <td><%= @configuration_item.environment %></td>
+  </tr>
+</table>
+
+<h2>Related Configuration Items</h2>
+<% if @configuration_item.related_cis.any? %>
+  <ul>
+    <% @configuration_item.related_cis.each do |related_ci| %>
+      <li><%= link_to related_ci.name, configuration_item_path(related_ci) %> (Type: <%= related_ci.ci_type %>)</li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No related configuration items.</p>
+<% end %>
+
+<%= link_to 'Edit', edit_configuration_item_path(@configuration_item), class: 'btn btn-warning' %>
+<%= link_to 'Delete', configuration_item_path(@configuration_item), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<%= link_to 'Back to List', configuration_items_path, class: 'btn btn-secondary' %>
+
+<%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger mt-3" %>

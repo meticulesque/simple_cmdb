@@ -13,6 +13,20 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  ''
+  resources :configuration_items
 
-  root "home#index"
+  namespace :api do
+    namespace :v1 do
+      resources :configuration_items, only: [:index, :show, :create, :update, :destroy]
+    end
+  end
+
+  authenticated :user do
+    root "configuration_items#index", as: :authenticated_root
+  end
+
+  unauthenticated do
+    root "home#index", as: :unauthenticated_root
+  end
 end
