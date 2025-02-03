@@ -1,5 +1,6 @@
 <h1>Configuration Items</h1>
 <%= link_to 'New Configuration Item', new_configuration_item_path, class: 'btn btn-primary' %>
+<%= link_to 'Dashboard', dashboard_path, class: 'btn btn-secondary' %>
 
 <%= form_with url: filtered_configuration_items_path, method: :get, local: true do %>
   <div class="form-group">

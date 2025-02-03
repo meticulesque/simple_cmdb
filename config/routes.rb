@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "dashboard", to: "configuration_items#dashboard", as: "dashboard"
+
   get ":id/tree_data", to: "configuration_items#tree_data"
 
   namespace :api do

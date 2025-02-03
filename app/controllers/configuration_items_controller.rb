@@ -66,6 +66,12 @@ class ConfigurationItemsController < ApplicationController
     render json: format_tree(root_ci, visited)
   end
 
+  def dashboard
+    @total_cis = ConfigurationItem.count
+    @count_by_type = ConfigurationItem.group(:ci_type).count
+    @count_by_status = ConfigurationItem.group(:status).count
+  end
+
   private
 
   def set_configuration_item
