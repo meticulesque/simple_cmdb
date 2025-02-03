@@ -13,4 +13,7 @@ class ConfigurationItem < ApplicationRecord
 
   has_many :ci_relationships, foreign_key: :parent_id, class_name: "CiRelationship", dependent: :destroy
   has_many :related_cis, through: :ci_relationships, source: :child
+
+  has_many :inverse_ci_relationships, foreign_key: :child_id, class_name: "CiRelationship", dependent: :destroy
+  has_many :parents, through: :inverse_ci_relationships, source: :parent
 end
