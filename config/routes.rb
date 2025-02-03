@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   ''
-  resources :configuration_items
+  resources :configuration_items do
+    collection do
+      get "filtered"
+    end
+  end
 
   get ":id/tree_data", to: "configuration_items#tree_data"
 

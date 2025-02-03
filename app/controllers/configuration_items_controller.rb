@@ -9,6 +9,16 @@ class ConfigurationItemsController < ApplicationController
   def show
   end
 
+  def filtered
+    @configuration_items = ConfigurationItem.all
+
+    # Apply filters if parameters are present
+    @configuration_items = @configuration_items.where(environment: params[:environment]) if params[:environment].present?
+    @configuration_items = @configuration_items.where(ci_type: params[:ci_type]) if params[:ci_type].present?
+
+    render :index  # Reuse the index view to display filtered results
+  end
+
   def new
     authorize! :manage, ConfigurationItem
     @configuration_item = ConfigurationItem.new
