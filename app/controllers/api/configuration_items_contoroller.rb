@@ -1,20 +1,17 @@
 module Api
-  module V1
     class ConfigurationItemsController < ApplicationController
       before_action :authenticate_user!
       before_action :set_configuration_item, only: [:show, :update, :destroy]
 
-      # GET /api/v1/configuration_items
       def index
         configuration_items = ConfigurationItem.all
         render json: configuration_items
       end
 
-      # GET /api/v1/configuration_items/:id
       def show
         render json: @configuration_item
       end
-      # POST /api/v1/configuration_items
+
       def create
         authorize! :manage, ConfigurationItem
         configuration_item = ConfigurationItem.new(configuration_item_params)
@@ -36,7 +33,6 @@ module Api
         end
       end
 
-      # DELETE /api/v1/configuration_items/:id
       def destroy
         authorize! :manage, ConfigurationItem
         @configuration_item.destroy
@@ -53,5 +49,4 @@ module Api
         params.require(:configuration_item).permit(:name, :type, :status, :environment)
       end
     end
-  end
 end
