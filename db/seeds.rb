@@ -1,15 +1,23 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-
 user = User.create(email: "admin@simplecmdb.com", password: "admin123")
 user.add_role(:admin)  # Assign admin role
 
 viewer = User.create(email: "viewer@simplecmdb.com", password: "viewer")
 viewer.add_role(:viewer)  # Assign viewer role
+
+# Create 10 configuration items
+ci_items = []
+10.times do |i|
+  ci_items << ConfigurationItem.create!(
+    name: "CI Item #{i + 1}",
+    ci_type: ConfigurationItem::TYPES.sample,
+    status: ConfigurationItem::STATUSES.sample,
+    environment: ConfigurationItem::ENVIRONMENTS.sample
+  )
+end
+
+# Create relationships between configuration items
+ci_items.each_with_index do |ci, index|
+  related_items = ci_items.sample(3) - [ci]
+  ci.related_ci_ids = related_items.map(&:id)
+  ci.save!
+end
