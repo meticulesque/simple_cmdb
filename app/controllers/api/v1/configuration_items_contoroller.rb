@@ -16,6 +16,7 @@ module Api
       end
       # POST /api/v1/configuration_items
       def create
+        authorize! :manage, ConfigurationItem
         configuration_item = ConfigurationItem.new(configuration_item_params)
         if configuration_item.save
           configuration_item.related_cis = ConfigurationItem.where(id: params[:configuration_item][:related_ci_ids])
@@ -26,6 +27,7 @@ module Api
       end
 
       def update
+        authorize! :manage, ConfigurationItem
         if @configuration_item.update(configuration_item_params)
           @configuration_item.related_cis = ConfigurationItem.where(id: params[:configuration_item][:related_ci_ids])
           render json: @configuration_item
@@ -36,6 +38,7 @@ module Api
 
       # DELETE /api/v1/configuration_items/:id
       def destroy
+        authorize! :manage, ConfigurationItem
         @configuration_item.destroy
         head :no_content
       end

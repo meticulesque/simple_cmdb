@@ -10,10 +10,12 @@ class ConfigurationItemsController < ApplicationController
   end
 
   def new
+    authorize! :manage, ConfigurationItem
     @configuration_item = ConfigurationItem.new
   end
 
   def create
+    authorize! :manage, ConfigurationItem
     @configuration_item = ConfigurationItem.new(configuration_item_params_create)
     if @configuration_item.save
       update_relationships
@@ -26,6 +28,7 @@ class ConfigurationItemsController < ApplicationController
   end
 
   def update
+    authorize! :manage, ConfigurationItem
     if @configuration_item.update(configuration_item_params_update)
       p @configuration_item.ci_relationships
       update_relationships
@@ -39,11 +42,13 @@ class ConfigurationItemsController < ApplicationController
   end
 
   def destroy
+    authorize! :manage, ConfigurationItem
     @configuration_item.destroy
     redirect_to configuration_items_path, notice: "Configuration Item deleted successfully."
   end
 
   def tree_data
+    authorize! :manage, ConfigurationItem
     root_ci = ConfigurationItem.find_by(id: params[:id]) || ConfigurationItem.first
     return render json: { error: "Configuration Item not found" }, status: :not_found unless root_ci
 
