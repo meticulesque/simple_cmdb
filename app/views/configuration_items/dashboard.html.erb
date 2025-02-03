@@ -28,9 +28,8 @@
   <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger mx-2' %>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("turbo:load", function() {
         // Data for CIs by Type
         const typeLabels = <%= raw @count_by_type.keys.map(&:to_json) %>;
         const typeCounts = <%= raw @count_by_type.values.to_json %>;
