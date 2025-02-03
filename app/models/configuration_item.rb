@@ -6,7 +6,7 @@ class ConfigurationItem < ApplicationRecord
   self.inheritance_column = :_type_disabled
   alias_attribute :ci_type, :type
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :ci_type, inclusion: { in: TYPES }
   validates :status, inclusion: { in: STATUSES }
   validates :environment, inclusion: { in: ENVIRONMENTS }
