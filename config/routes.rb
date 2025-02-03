@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   ''
   resources :configuration_items
 
+  get ":id/tree_data", to: "configuration_items#tree_data"
+
   namespace :api do
     namespace :v1 do
       resources :configuration_items, only: [:index, :show, :create, :update, :destroy]

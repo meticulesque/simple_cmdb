@@ -43,6 +43,14 @@ class ConfigurationItemsController < ApplicationController
     redirect_to configuration_items_path, notice: "Configuration Item deleted successfully."
   end
 
+  def tree_data
+    root_ci = ConfigurationItem.find_by(id: params[:id]) || ConfigurationItem.first
+    return render json: { error: "Configuration Item not found" }, status: :not_found unless root_ci
+
+    visited = Set.new
+    render json: format_tree(root_ci, visited)
+  end
+
   private
 
   def set_configuration_item
@@ -59,5 +67,17 @@ class ConfigurationItemsController < ApplicationController
 
   def update_relationships
     @configuration_item.related_cis = ConfigurationItem.where(id: params[:configuration_item][:related_ci_ids].reject(&:blank?))
+  end
+
+  def format_tree(ci, visited)
+    return if visited.include?(ci.id)
+
+    visited.add(ci.id)
+
+    children = CiRelationship.where(parent_id: ci.id).map do |relationship|
+      format_tree(ConfigurationItem.find_by(id: relationship.child_id), visited)
+    end.compact
+
+    { name: ci.name, children: children }
   end
 end
