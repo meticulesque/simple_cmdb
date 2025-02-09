@@ -40,7 +40,6 @@ class ConfigurationItemsController < ApplicationController
   def update
     authorize! :manage, ConfigurationItem
     if @configuration_item.update(configuration_item_params_update)
-      p @configuration_item.ci_relationships
       update_relationships
       redirect_to @configuration_item, notice: "Configuration Item updated successfully."
     else
@@ -58,7 +57,7 @@ class ConfigurationItemsController < ApplicationController
   end
 
   def tree_data
-    authorize! :manage, ConfigurationItem
+    authorize! :read, ConfigurationItem
     root_ci = ConfigurationItem.find_by(id: params[:id]) || ConfigurationItem.first
     return render json: { error: "Configuration Item not found" }, status: :not_found unless root_ci
 
@@ -87,7 +86,7 @@ class ConfigurationItemsController < ApplicationController
   end
 
   def update_relationships
-    @configuration_item.related_cis = ConfigurationItem.where(id: params[:configuration_item][:related_ci_ids].reject(&:blank?))
+    @configuration_item.related_cis = ConfigurationItem.where(id: params[:configuration_item][:related_ci_ids])
   end
 
   def format_tree(ci, visited)
