@@ -67,4 +67,5 @@ group :test do
   gem "selenium-webdriver"
   gem "factory_bot_rails"
   gem "faker"  # For generating random data
+  gem "rails-controller-testing"
 end
