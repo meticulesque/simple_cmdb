@@ -11,7 +11,7 @@ services:
     ports:
       - "80:80"
     environment:
-      RAILS_ENV: production
+      RAILS_ENV: development
       # in normal application RAILS_MASTER_KEY shouldn't be there, but for example we leave it there
       RAILS_MASTER_KEY: "7629d3316a7c81eb1e5f30a7855a6355"
     stdin_open: true
