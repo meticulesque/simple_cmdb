@@ -1,4 +1,5 @@
-<h1>Welcome to User Roles App</h1>
+<div class="container mt-5">
+<h1>Welcome Simple CMDB</h1>
 
 <% if user_signed_in? %>
   <p>Hello, <%= current_user.email %>!</p>
@@ -15,5 +16,5 @@
 <% else %>
   <p>Please log in to access the system.</p>
   <%= link_to 'Login', new_user_session_path, class: 'btn btn-primary' %>
-  <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-secondary' %>
 <% end %>
+</div>

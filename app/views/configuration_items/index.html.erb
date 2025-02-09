@@ -1,7 +1,9 @@
 <div class="container mt-5">
 <h1>Configuration Items</h1>
-<%= link_to 'New Configuration Item', new_configuration_item_path, class: 'btn btn-primary' %>
-<%= link_to 'Dashboard', dashboard_path, class: 'btn btn-secondary' %>
+<% if can?(:manage, @configuration_items) %>
+  <%= link_to 'New Configuration Item', new_configuration_item_path, class: 'btn btn-primary' %>
+  <%= link_to 'Dashboard', dashboard_path, class: 'btn btn-secondary' %>
+<% end %>
 
 <%= form_with url: filtered_configuration_items_path, method: :get, local: true do %>
   <div class="form-group">
