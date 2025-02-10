@@ -68,6 +68,19 @@ docker-compose exec app bundle exec rails db:migrate
 ### 4. Access the Application
 Open http://localhost:80 in your browser.
 
+### 5. Credentials
+
+Populated with seed data, you can login with the following credentials:
+```sh
+Read user
+User: viewer@simplecmdb.com 
+Password: viewer
+
+Admin user
+User: admin@simplecmdb.com 
+Password: admin123
+
+```
 
 ![img.png](img.png)
 
