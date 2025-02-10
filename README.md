@@ -66,7 +66,7 @@ docker-compose exec app bundle exec rails db:migrate
 ```
 
 ### 4. Access the Application
-Open http://localhost:3000 in your browser.
+Open http://localhost:80 in your browser.
 
 
 ![img.png](img.png)
